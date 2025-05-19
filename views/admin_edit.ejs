@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Redigera text: <%= key %></title>
+</head>
+<body>
+  <h1>Redigera text: <%= key %></h1>
+  <% if (typeof message !== 'undefined') { %>
+    <p style="color: green;"><%= message %></p>
+  <% } %>
+  <form method="POST">
+    <textarea name="content" rows="10" cols="60"><%= content %></textarea>
+    <br>
+    <button type="submit">Spara</button>
+  </form>
+  <a href="/admin/logout">Logga ut</a>
+</body>
+</html>
