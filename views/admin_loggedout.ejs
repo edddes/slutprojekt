@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Utloggad</title>
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-  <h1>Du är nu utloggad!</h1>
-  <a href="/">Tillbaka till startsidan</a>
+  <nav class="navbar">
+    <a href="/">Hem</a>
+    <a href="/admin/login">Logga in igen</a>
+  </nav>
+  <div class="main-wrapper" style="max-width: 400px;">
+    <h1>Du är nu utloggad</h1>
+    <p>Du har loggats ut från adminpanelen.</p>
+  </div>
 </body>
 </html>

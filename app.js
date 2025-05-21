@@ -1,37 +1,52 @@
 const express = require('express');
-const path = require('path');
+const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const helmet = require('helmet');
-const adminRoutes = require('./routes/admin'); // Importera admin-router
+const path = require('path');
 
 const app = express();
 
+mongoose.connect('mongodb+srv://edvinranheden:igbLpvmjgEDHDkTd@skolprylar.kqdhv.mongodb.net/?retryWrites=true&w=majority&appName=skolprylar', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Sessions för inloggning
 app.use(session({
-  secret: 'hemligsträng', // byt gärna till något eget!
+  secret: 'valfrihemligsträng', //byt detta sen
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: 'mongodb+srv://edvinranheden:igbLpvmjgEDHDkTd@skolprylar.kqdhv.mongodb.net/?retryWrites=true&w=majority&appName=skolprylar',
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+    sameSite: 'lax'
+  }
 }));
 
-// Statiska filer (t.ex. CSS)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/styles', express.static(path.join(__dirname, 'public/styles')));
 
-// Sätt EJS som vy-motor
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Koppla in admin-router på /admin
-app.use('/admin', adminRoutes);
+const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin');
 
-// Publik startsida som visar redigerad text
-app.get('/', (req, res) => {
-  res.render('index', { content: adminRoutes.getText1Content() });
+app.use('/', indexRouter);
+app.use('/admin', adminRouter);
+
+app.use((req, res) => {
+  res.status(404).render('404', { url: req.originalUrl });
 });
 
-// Starta servern
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servern körs på http://localhost:${PORT}`);

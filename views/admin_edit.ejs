@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Redigera text: <%= key %></title>
+  <meta charset="UTF-8" />
+  <title>Redigera Text</title>
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-  <h1>Redigera text: <%= key %></h1>
-  <% if (typeof message !== 'undefined') { %>
-    <p style="color: green;"><%= message %></p>
-  <% } %>
-  <form method="POST">
-    <textarea name="content" rows="10" cols="60"><%= content %></textarea>
-    <br>
-    <button type="submit">Spara</button>
-  </form>
-  <a href="/admin/logout">Logga ut</a>
+  <nav class="navbar">
+    <a href="/">Hem</a>
+    <a href="/admin/login">Admin</a>
+  </nav>
+  <div class="main-wrapper" style="max-width: 600px;">
+    <h1>Redigera text (<%= key %>)</h1>
+    <% if (message) { %>
+      <p style="color: green;"><%= message %></p>
+    <% } %>
+    <form action="/admin/edit/<%= key %>" method="POST">
+      <textarea name="content" rows="10" required><%= content %></textarea>
+      <button type="submit">Spara</button>
+    </form>
+    <p>
+      <a href="/admin/edit/text1">Redigera startsidan</a> |
+      <a href="/admin/edit/text2">Redigera sida 2</a> |
+      <a href="/admin/edit/text3">Redigera sida 3</a> |
+      <a href="/admin/upload-image">Ladda upp bild</a> |
+      <a href="/admin/images">Visa bilder</a> |
+      <a href="/admin/logout">Logga ut</a>
+    </p>
+  </div>
 </body>
 </html>

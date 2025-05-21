@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Startsida</title>
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <meta charset="UTF-8" />
+  <title>Min Webbplats</title>
 </head>
 <body>
-  <h1>Detta är startsidan</h1>
-  <p><%= content %></p>
-  <a href="/admin/login">Admin Login</a>
+  <h1>Välkommen!</h1>
+  <div>
+    <h2>Text från admin:</h2>
+    <p><%= content %></p>
+  </div>
+  <div>
+    <h2>Uppladdade bilder</h2>
+    <% if (images.length === 0) { %>
+      <p>Inga bilder uppladdade ännu.</p>
+    <% } else { %>
+      <% images.forEach(image => { %>
+        <img src="/uploads/<%= image.filename %>" alt="Bild" style="max-width:300px; margin:10px;" />
+      <% }) %>
+    <% } %>
+  </div>
+  <a href="/admin/login">Adminpanel</a>
 </body>
 </html>

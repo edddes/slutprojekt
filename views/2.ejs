@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Sida 2</title>
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-  <h1>Detta är sida 2!</h1>
-  <p>Text från databasen: <%= text2 %></p>
-  <a href="/3">Gå till sida 3</a>
-  <br>
-  <a href="/admin/edit/text2">Redigera denna text (admin)</a>
+  <div class="navbar">
+    <a href="/">Startsidan</a>
+    <a href="/2">Sida 2</a>
+    <a href="/3">Sida 3</a>
+    <a href="/admin/login" style="float:right; margin-right:2rem; font-weight:bold;">Admin</a>
+  </div>
+  <div class="main-wrapper">
+    <h1><%= text2 %></h1>
+    <% if (images.length === 0) { %>
+      <p>Inga bilder uppladdade.</p>
+    <% } %>
+    <% images.forEach(image => { %>
+      <div style="margin-bottom: 2rem;">
+        <img src="/uploads/<%= image.filename %>" alt="Bild" style="max-width: 300px; display: block; margin: 0 auto 0.5rem auto;" />
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>

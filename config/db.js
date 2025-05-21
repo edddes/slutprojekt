@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
@@ -6,9 +6,9 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB ansluten");
+    console.log('MongoDB ansluten');
   } catch (err) {
-    console.error("Fel vid anslutning till MongoDB:", err.message);
+    console.error('Fel vid anslutning till MongoDB:', err);
     process.exit(1);
   }
 };

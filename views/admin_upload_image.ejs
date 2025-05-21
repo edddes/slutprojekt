@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ladda upp bild</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/">Hem</a>
+    <a href="/admin/login">Admin</a>
+  </nav>
+  <div class="main-wrapper" style="max-width: 500px;">
+    <h1>Ladda upp bild</h1>
+    <% if (message) { %>
+      <p style="color: green;"><%= message %></p>
+    <% } %>
+    <form action="/admin/upload-image" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required />
+      <button type="submit">Ladda upp</button>
+    </form>
+    <p>
+      <a href="/admin/images">Visa alla bilder</a> |
+      <a href="/admin/edit/text1">Redigera startsidan</a>
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin – Bilder</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <div class="navbar">
+    <a href="/admin/edit/text1">Redigera texter</a>
+    <a href="/admin/upload-image">Ladda upp bild</a>
+    <a href="/admin/images">Hantera bilder</a>
+    <a href="/admin/logout">Logga ut</a>
+  </div>
+  <div class="main-wrapper">
+    <h1>Bilder</h1>
+    <% if (images.length === 0) { %>
+      <p>Inga bilder uppladdade.</p>
+    <% } %>
+    <% images.forEach(image => { %>
+      <div style="margin-bottom: 2rem;">
+        <img src="/uploads/<%= image.filename %>" alt="Bild" style="max-width: 300px; display: block; margin: 0 auto 0.5rem auto;" />
+        <form method="POST" action="/admin/images/delete/<%= image._id %>" onsubmit="return confirm('Ta bort bilden?');">
+          <button type="submit" class="btn">Ta bort</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
+</body>
+</html>
